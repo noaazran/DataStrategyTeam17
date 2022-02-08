@@ -21,7 +21,7 @@ def main():
     print("Dates preprocessing...")
     df = dates_preprocessing(df)
     
-    print("Preprocessing order_channel columns...")
+    print("Preprocessing order_channel column...")
     df = order_channel_preprocessing(df)
 
     print("Adding features...")
@@ -29,6 +29,7 @@ def main():
     
     print("Saving cleaned data set...")
     df.to_csv(os.path.join("data", "preprocessed_data.csv"))
+    print("Done")
     return
 
 
