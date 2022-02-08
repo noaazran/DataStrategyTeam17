@@ -27,10 +27,9 @@ def add_features(filtered_transactions):
     filtered_transactions["date_invoice"] = pd.to_datetime(filtered_transactions["date_invoice"])
     
     # Date features
-    filtered_transactions["month_order"] = filtered_transactions["date_order"].apply(lambda x : x.month)
+    filtered_transactions["month_order"] = filtered_transactions["date_order"].dt.month
     filtered_transactions["order_invoice_delta"] = (filtered_transactions["date_invoice"]- \
-                                                    filtered_transactions["date_order"]).apply(
-                                                    lambda x : x.days)
+                                                    filtered_transactions["date_order"]).dt.days
     return filtered_transactions
 
 
