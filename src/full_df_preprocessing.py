@@ -30,4 +30,5 @@ def add_features(df):
     # Date features
     df["month_order"] = df["date_order"].dt.month
     df["order_invoice_delta"] = (df["date_invoice"] - df["date_order"]).dt.days
+    df.order_invoice_delta = df.order_invoice_delta.astype('float16')
     return df
