@@ -18,12 +18,10 @@ def add_features(df):
     df["unit_price"] = df["sales_net"] / df["quantity"]
     df.unit_price = df.unit_price.astype('int8')
     
-    # Add flow : 1 means it is a purchase (increased stock), -1 it is a sale
-    profitable_transactions = df['sales_net'] >= 0
-    unprofitable_transactions = df['sales_net'] < 0
+    # Add flow : 1 means it is a purchase (increased stock), 0 it is a sale
+    purchases = df['sales_net'] >= 0
     df["stock_flow"] = 0
-    df.loc[profitable_transactions, 'stock_flow'] = 1
-    df.loc[unprofitable_transactions, 'stock_flow'] = -1
+    df.loc[purchases, 'stock_flow'] = 1
     df.stock_flow = df.stock_flow.astype('int8')
     
     df["quantity"] = df["quantity"] * df["stock_flow"]
