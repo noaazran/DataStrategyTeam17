@@ -18,7 +18,7 @@ def main():
     print("Loading raw data set...")
     df = load_dataset(datatypes)
     
-    print("Dates preprocessing...")
+    print("Date columns preprocessing...")
     df = dates_preprocessing(df)
     
     print("Preprocessing order_channel column...")
