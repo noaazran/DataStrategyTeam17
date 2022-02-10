@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 
@@ -21,12 +22,12 @@ datatypes = {
 }
 
 def main():
-    print("Loading preprocesse dataset...")
+    print("Loading preprocessed dataset...")
     df = load_preprocessed_data(datatypes)
     
     print("Encoding categorical column...")
     df = categorical_encoding(df)
-    df = drop_na(df)
+    df.dropna(inplace=True)
 
     print("Clustering...")
     df_kmeans = kmeans_clustering(df, min_n=2, max_n=8)

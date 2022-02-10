@@ -6,7 +6,11 @@ from sklearn.preprocessing import LabelEncoder
 from kneed import KneeLocator
 
 def load_preprocessed_data(datatypes):
-    return pd.read_csv('data/preprocessed_data.csv', dtype=datatypes, sep=',').drop(columns=['Unnamed: 0', 'date_order', 'date_invoice'], axis=1)
+    df = pd.read_csv('data/preprocessed_data.csv', dtype=datatypes, sep=',')
+    for col in ['Unnamed: 0', 'date_order', 'date_invoice']:
+        if col in df.columns:
+            df.drop(columns=col, axis=1, inplace=True)
+    return df
 
 
 def categorical_encoding(df):
