@@ -15,7 +15,7 @@ datatypes = {
 }
 
 def main():
-    print("Loading raw data set...")
+    print("Loading raw dataset...")
     df = load_dataset(datatypes)
     
     print("Date columns preprocessing...")
@@ -27,7 +27,7 @@ def main():
     print("Adding features...")
     df = add_features(df)
     
-    print("Saving cleaned data set...")
+    print("Saving preprocessed dataset...")
     df.to_csv(os.path.join("data", "preprocessed_data.csv"))
     print("Done")
     return
