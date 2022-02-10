@@ -46,11 +46,22 @@ def kmeans_clustering(df, min_n=2, max_n=8):
         kmeans = KMeans(n_clusters=k, **kmeans_kwargs)
         kmeans.fit(df)
         sse.append(kmeans.inertia_)
+    
+    return sse
 
+def knee_locator(sse, min_n, max_n):
     kl = KneeLocator(
-        range(min_n, max_n), sse, curve="convex", direction="decreasing"
+            range(min_n, max_n), sse, curve="convex", direction="decreasing"
     )
+    return kl
 
+def kmeans_predict(df, kl):
+    kmeans_kwargs = {
+        "init": "random",
+        "n_init": 10,
+        "max_iter": 750,
+        "random_state": 0
+    }
     kmeans = KMeans(n_clusters=kl.elbow, **kmeans_kwargs).fit(df)
 
     df_kmeans = pd.DataFrame(kmeans.transform(df))
