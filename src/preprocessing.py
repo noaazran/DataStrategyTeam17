@@ -72,6 +72,7 @@ def main():
     raw_transactions = load_raw_transactions()
     
     print("Filtering transactions...")
+    # Remove this step to compare channels or work on a larger data set. Beware of high computationnal cost.
     filtered_transactions = select_transactions(raw_transactions)
     
     print("Computing useful features...")
@@ -79,6 +80,8 @@ def main():
     
     print("Computing client history features...")
     client_history = add_all_client_specific_features(filtered_transactions)
+    # Remove clients with only one order, who have NaN for differential features
+    client_history.dropna(inplace=True)
     
     print("Saving cleaned data set...")
     client_history.to_csv(os.path.join("data", "client_history.csv"))
