@@ -6,6 +6,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+import random
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -34,7 +37,7 @@ def aggregate_client_history_features(client_history):
 def prepare_train_test_data(clients):
     X = clients.set_index("client_id").drop(columns=["churned"])
     y = clients.set_index("client_id").loc[:,["churned"]]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, shuffle=True)
     print("Train size : ", X_train.shape[0])
     print("Test size : ", X_test.shape[0])
     
@@ -62,8 +65,8 @@ def main():
     
     print("Model confusion matrix : ")
     print(cm)
-    print("Model recall : ")
-    print("Model precision : ")
+    print("Model recall : ", round(cm[1,1] / (cm[1,1] + cm[0,1]), 2)) # TP / TP + FN
+    print("Model precision : ", round(cm[1,1] / (cm[1,1] + cm[1,0]), 2)) # TP / TP + FP
     
     return
 
